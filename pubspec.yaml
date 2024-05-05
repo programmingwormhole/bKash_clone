@@ -1,0 +1,65 @@
+name: bKash_flutter
+description: Flutter mvc architecture with getx state managment
+publish_to: 'none'
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+
+  # State managment
+  get: ^4.6.5
+
+  # Carousel Slider
+  carousel_slider:
+  
+  intl_phone_field: ^3.1.0
+  otp_text_field: ^1.1.3
+  lottie:
+  shared_preferences:
+  http:
+  image_picker:
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^2.0.0
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/animations/
+    - assets/svg/
+
+  fonts:
+    - family: Urbanist
+      fonts:
+        - asset: assets/fonts/Urbanist/Urbanist-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Urbanist/Urbanist-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Urbanist/Urbanist-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Urbanist/Urbanist-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Urbanist/Urbanist-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Urbanist/Urbanist-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Urbanist/Urbanist-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Urbanist/Urbanist-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Urbanist/Urbanist-Thin.ttf
+          weight: 100
