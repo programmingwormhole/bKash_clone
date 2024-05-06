@@ -21,13 +21,22 @@ class ApiServices {
     });
   }
 
+  static Future<http.Response> userData() async {
+    return await http.get(
+      ApiEndpoints.user,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': await authToken(),
+      },
+    );
+  }
+
   static Future<http.StreamedResponse> profileSetup({
     required String pin,
     required String fName,
     required String lName,
     required String profilePicture,
   }) async {
-
     final request = http.MultipartRequest('POST', ApiEndpoints.setupProfile);
 
     var headers = {

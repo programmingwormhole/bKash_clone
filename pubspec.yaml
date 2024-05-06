@@ -39,8 +39,10 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/images/icons/
     - assets/animations/
     - assets/svg/
+    - assets/HomePage/
 
   fonts:
     - family: Urbanist

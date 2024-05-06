@@ -1,4 +1,6 @@
 import 'package:bKash_flutter/controllers/auth_controller.dart';
+import 'package:bKash_flutter/controllers/home_controller.dart';
+import 'package:bKash_flutter/core/services/shared_services.dart';
 import 'package:bKash_flutter/global_widgets/custom_auth_app_bar.dart';
 import 'package:bKash_flutter/global_widgets/custom_bottom_bar_button.dart';
 import 'package:bKash_flutter/routes/route_names.dart';
@@ -25,9 +27,10 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(AuthController());
+    final homeController = Get.put(HomeController());
 
     return Scaffold(
-      appBar: CustomAuthAppBar(),
+      appBar: const CustomAuthAppBar(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(left: 25, right: 25),
@@ -80,8 +83,9 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
               TextFormField(
                 readOnly: true,
                 decoration: InputDecoration(
-                  hintText: controller.number.value,
-                  hintStyle: TextStyle(
+                  hintText: homeController.userData.value.phoneNumber ??
+                      controller.number.value,
+                  hintStyle: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w400,
                   ),
@@ -155,8 +159,18 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
           if (state == 'register') {
             Get.toNamed(RouteNames.name);
           } else {
-            print('Check PIN and Navigate');
-            // Check PIN Then Navigate to Home
+            if (homeController.userData.value.pin != controller.pin.value) {
+              Get.snackbar('Error', 'Invalid PIN Number');
+              return;
+            }
+
+            SharedServices.setData(
+              SetType.string,
+              'phone',
+              homeController.userData.value.phoneNumber,
+            );
+
+            Get.offAllNamed(RouteNames.home);
           }
         },
       ),

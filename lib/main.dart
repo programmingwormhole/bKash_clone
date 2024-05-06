@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
 
       // Routes
       getPages: RouteDestinations.pages,
-      initialRoute: RouteNames.welcome,
+      initialRoute: RouteNames.splash,
     );
   }
 }

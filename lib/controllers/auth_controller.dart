@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:bKash_flutter/controllers/home_controller.dart';
 import 'package:bKash_flutter/core/services/api_services.dart';
 import 'package:bKash_flutter/core/services/shared_services.dart';
+import 'package:bKash_flutter/models/user_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import '../routes/route_names.dart';
@@ -19,6 +21,8 @@ class AuthController extends GetxController {
   RxString lName = RxString('');
 
   File? profilePicture;
+
+  final homeController = Get.put(HomeController());
 
   Future auth() async {
     final response = await ApiServices.auth(
@@ -51,6 +55,14 @@ class AuthController extends GetxController {
     }
 
     print(response.body);
+
+    if (decode['state'] == 'login') {
+      final response = await ApiServices.userData();
+
+      homeController.userData.value = userModelFromJson(response.body);
+      update();
+
+    }
 
     return Get.toNamed(
       RouteNames.pin,

@@ -1,5 +1,6 @@
 class RouteNames {
-  static const String welcome = '/';
+  static const String splash = '/';
+  static const String welcome = '/welcome';
   static const String auth = '/auth';
   static const String otp = '/otp';
   static const String pin = '/pin';
