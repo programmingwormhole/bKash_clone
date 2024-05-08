@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bKash_flutter/core/services/shared_services.dart';
 import 'package:bKash_flutter/routes/route_names.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    checkUserState();
+    Timer(const Duration(seconds: 3), () {
+      checkUserState();
+    });
   }
 
   checkUserState() async {

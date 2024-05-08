@@ -1,4 +1,5 @@
 import 'package:bKash_flutter/controllers/wallet_controller.dart';
+import 'package:bKash_flutter/utils/config.dart';
 import 'package:bKash_flutter/views/sendMoney/sendMoneyDetailScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,23 +40,23 @@ class AmountScreen extends StatelessWidget {
                       )
                     ],
                   ),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Receiver'),
-                        SizedBox(
+                        const Text('Receiver'),
+                        const SizedBox(
                           height: 10,
                         ),
                         ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+                            backgroundImage: NetworkImage(controller.receiverData.value.profilePicture!,
                             ),
                           ),
-                          title: Text('Md Shirajul Islam'),
-                          subtitle: Text('01758195324'),
+                          title: Text(
+                              '${controller.receiverData.value.firstName} ${controller.receiverData.value.lastName}'),
+                          subtitle: Text(controller.receiverData.value.phoneNumber!),
                         ),
                       ],
                     ),

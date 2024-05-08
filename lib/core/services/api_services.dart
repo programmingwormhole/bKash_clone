@@ -21,9 +21,46 @@ class ApiServices {
     });
   }
 
+  static Future<http.Response> sendMoney({
+    required String amount,
+    required String receiverNumber,
+  }) async {
+    return await http.post(
+      ApiEndpoints.sendMoney,
+      body: {
+        'amount': amount,
+        'receiver_number': receiverNumber,
+      },
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': await authToken(),
+      },
+    );
+  }
+
   static Future<http.Response> userData() async {
     return await http.get(
       ApiEndpoints.user,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': await authToken(),
+      },
+    );
+  }
+
+  static Future<http.Response> transactionHistory () async {
+    return await http.get(
+      ApiEndpoints.transactionHistory,
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': await authToken(),
+      },
+    );
+  }
+
+  static Future<http.Response> checkNumber(String number) async {
+    return await http.get(
+      Uri.parse('${ApiEndpoints.checkNumber}$number'),
       headers: {
         'Accept': 'application/json',
         'Authorization': await authToken(),

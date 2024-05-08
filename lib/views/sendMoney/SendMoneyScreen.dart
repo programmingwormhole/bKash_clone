@@ -31,17 +31,19 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                 child: Container(
                   width: mediaSize.width - 30,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(5),
-                          topRight: Radius.circular(5)),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.1),
-                          blurRadius: 2,
-                          spreadRadius: 1,
-                        )
-                      ]),
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(5),
+                      topRight: Radius.circular(5),
+                    ),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 2,
+                        spreadRadius: 1,
+                      )
+                    ],
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: Column(
@@ -67,12 +69,13 @@ class _SendMoneyScreenState extends State<SendMoneyScreen> {
                                 onPressed:
                                     controller.receiverNumber.value.length > 10
                                         ? () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) => AmountScreen(),
-                                              ),
-                                            );
+                                            controller.checkNumber();
+                                            // Navigator.push(
+                                            //   context,
+                                            //   MaterialPageRoute(
+                                            //     builder: (_) => AmountScreen(),
+                                            //   ),
+                                            // );
                                           }
                                         : null,
                                 icon: Icon(

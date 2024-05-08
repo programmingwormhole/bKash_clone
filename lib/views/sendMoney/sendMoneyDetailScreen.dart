@@ -1,3 +1,4 @@
+import 'package:bKash_flutter/controllers/home_controller.dart';
 import 'package:bKash_flutter/controllers/wallet_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,7 @@ class SendMoneyDetails extends StatelessWidget {
     TextEditingController _reff = TextEditingController();
 
     final controller = Get.put(WalletController());
+    final homeController = Get.put(HomeController());
 
     return Scaffold(
       appBar: customPageBar('Send Money'),
@@ -30,33 +32,35 @@ class SendMoneyDetails extends StatelessWidget {
                 child: Container(
                   width: mediaSize.width - 30,
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(5),
-                          topLeft: Radius.circular(5)),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            blurRadius: 2,
-                            spreadRadius: 1)
-                      ]),
-                  child: const Padding(
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                        topRight: Radius.circular(5),
+                        topLeft: Radius.circular(5)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        blurRadius: 2,
+                        spreadRadius: 1,
+                      )
+                    ],
+                  ),
+                  child: Padding(
                     padding: EdgeInsets.all(15.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Receiver'),
-                        SizedBox(
+                        const Text('Receiver'),
+                        const SizedBox(
                           height: 10,
                         ),
                         ListTile(
                           leading: CircleAvatar(
-                            backgroundImage: NetworkImage(
-                              'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+                            backgroundImage: NetworkImage(controller.receiverData.value.profilePicture!,
                             ),
                           ),
-                          title: Text('Md Shirajul Islam'),
-                          subtitle: Text('01758195324'),
+                          title: Text(
+                              '${controller.receiverData.value.firstName} ${controller.receiverData.value.lastName}'),
+                          subtitle: Text(controller.receiverData.value.phoneNumber!),
                         ),
                       ],
                     ),
@@ -136,12 +140,12 @@ class SendMoneyDetails extends StatelessWidget {
                           suffixIcon: IconButton(
                               onPressed: () {
                                 if (_button.text.length > 3) {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => confirmPayPage(),
-                                    ),
-                                  );
+                                  if (homeController.userData.value.pin != _button.text) {
+                                    Get.snackbar('Error', 'Invalid PIN Number Provided');
+                                    return;
+                                  }
+
+                                  Get.to(() => confirmPayPage());
                                 }
                               },
                               icon: const Icon(

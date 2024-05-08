@@ -35,6 +35,14 @@ class SharedServices {
         ? prefs.getStringList(key)
         : null;
 
+    print('Key: ${key} Value: ${data}');
+
     return data;
+  }
+
+  static Future removeData (String key) async {
+    final prefs = await SharedPreferences.getInstance();
+
+    prefs.remove(key);
   }
 }

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:bKash_flutter/utils/config.dart';
+
 UserModel userModelFromJson(String str) => UserModel.fromJson(json.decode(str));
 
 String userModelToJson(UserModel data) => json.encode(data.toJson());
@@ -39,7 +41,7 @@ class UserModel {
     otp: json["otp"],
     firstName: json["first_name"],
     lastName: json["last_name"],
-    profilePicture: json["profile_picture"],
+    profilePicture: AppConfig.baseUrl+json["profile_picture"],
     pin: json["pin"],
     balance: json["balance"],
     createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),

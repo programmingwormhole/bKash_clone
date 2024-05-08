@@ -54,9 +54,8 @@ class confirmPayPage extends StatelessWidget {
                   ),
                   Row(
                     children: [
-                      const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://cdn-icons-png.flaticon.com/512/147/147144.png',
+                      CircleAvatar(
+                        backgroundImage: NetworkImage(controller.receiverData.value.profilePicture!,
                         ),
                       ),
                       const SizedBox(
@@ -65,12 +64,10 @@ class confirmPayPage extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            controller.name.value,
-                            style: TextStyle(fontSize: 18),
+                          Text('${controller.receiverData.value.firstName} ${controller.receiverData.value.lastName}',
+                            style: const TextStyle(fontSize: 18),
                           ),
-                          Text(
-                            controller.receiverNumber.value,
+                          Text(controller.receiverData.value.phoneNumber!,
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.black.withOpacity(0.5),
@@ -156,7 +153,8 @@ class confirmPayPage extends StatelessWidget {
           //Animated button
           AnimatedButton(
             onComplete: () {
-              Get.offAll(() => const SuccessScreen());
+              controller.sendMoney();
+              // Get.offAll(() => const SuccessScreen());
             },
           )
         ],

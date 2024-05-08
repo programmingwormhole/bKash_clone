@@ -1,4 +1,6 @@
+import 'package:bKash_flutter/views/history/history.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 class BottomNavigationBarWidget extends StatelessWidget {
   const BottomNavigationBarWidget({
     Key? key,
@@ -42,14 +44,14 @@ class BottomNavigationBarWidget extends StatelessWidget {
 
               MaterialButton(
                 // minWidth: 40,
-                onPressed: () {},
-                child: Column(
+                onPressed: () => Get.to(() => const HistoryScreen()),
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
-                    Icon(Icons.forward_to_inbox,
+                  children: <Widget>[
+                    Icon(Icons.history,
                         color: Colors.white60, size: 30.0),
                     Text(
-                      'Inbox',
+                      'History',
                       style: TextStyle(color: Colors.white60),
                     ),
                   ],

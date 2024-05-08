@@ -1,4 +1,6 @@
 import 'package:bKash_flutter/controllers/home_controller.dart';
+import 'package:bKash_flutter/core/services/shared_services.dart';
+import 'package:bKash_flutter/routes/route_names.dart';
 import 'package:bKash_flutter/views/sendMoney/SendMoneyScreen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -437,7 +439,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          SharedServices.removeData('token');
+          SharedServices.removeData('phone');
+          Get.offAllNamed(RouteNames.welcome);
+        },
         shape: const CircleBorder(),
         backgroundColor: Colors.white,
         child: const Icon(

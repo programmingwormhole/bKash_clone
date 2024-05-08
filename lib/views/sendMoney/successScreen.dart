@@ -1,8 +1,12 @@
+import 'package:bKash_flutter/models/transaction_success_model.dart';
+import 'package:bKash_flutter/utils/config.dart';
 import 'package:bKash_flutter/views/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class SuccessScreen extends StatefulWidget {
-  const SuccessScreen({Key? key}) : super(key: key);
+  final TransactionSuccessModel response;
+
+  const SuccessScreen({Key? key, required this.response}) : super(key: key);
 
   @override
   State<SuccessScreen> createState() => _SuccessScreenState();
@@ -27,32 +31,36 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     RichText(
-                        text: const TextSpan(
-                            text: 'Mobile Recharge ',
-                            style: TextStyle(
-                                color: Colors.pink,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
-                            children: [
+                      text: const TextSpan(
+                        text: 'Send Money ',
+                        style: TextStyle(
+                            color: Colors.pink,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                        children: [
                           TextSpan(
-                              text: 'Success',
-                              style: TextStyle(
-                                color: Colors.pink,
-                                fontSize: 18,
-                              ))
-                        ])),
+                            text: 'Success',
+                            style: TextStyle(
+                              color: Colors.pink,
+                              fontSize: 18,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                     Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.green, width: 2),
-                        ),
-                        child: const Icon(
-                          Icons.done,
-                          color: Colors.green,
-                        ))
+                      height: 30,
+                      width: 30,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.green, width: 2),
+                      ),
+                      child: const Icon(
+                        Icons.done,
+                        color: Colors.green,
+                      ),
+                    )
                   ],
                 ),
                 const SizedBox(
@@ -60,9 +68,9 @@ class _SuccessScreenState extends State<SuccessScreen> {
                 ),
                 Row(
                   children: [
-                    const CircleAvatar(
+                    CircleAvatar(
                       backgroundImage: NetworkImage(
-                          'https://cdn-icons-png.flaticon.com/512/147/147144.png'),
+                          '${AppConfig.baseUrl}${widget.response.receiver!.profilePicture!}'),
                     ),
                     const SizedBox(
                       width: 10,
@@ -70,14 +78,17 @@ class _SuccessScreenState extends State<SuccessScreen> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'NNV Coders',
+                        Text(
+                          '${widget.response.receiver!.firstName} ${widget.response.receiver!.lastName}',
                           style: TextStyle(fontSize: 18),
                         ),
-                        Text('***********',
-                            style: TextStyle(
-                                fontSize: 15,
-                                color: Colors.black.withOpacity(0.5)))
+                        Text(
+                          widget.response.receiver!.phoneNumber!,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        )
                       ],
                     )
                   ],
@@ -102,14 +113,15 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        const Text('\$500.00'),
+                        Text('৳${widget.response.transaction!.amount}.00'),
                         const SizedBox(
                           height: 5,
                         ),
                         Text(
-                          '\$500.00 + \$00.00',
-                          style:
-                              TextStyle(color: Colors.black.withOpacity(0.5)),
+                          '৳${widget.response.transaction!.amount}.00 + ৳00.00',
+                          style: TextStyle(
+                            color: Colors.black.withOpacity(0.5),
+                          ),
                         ),
                       ],
                     ),
@@ -124,12 +136,11 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const [
-                            Text('\$1758.00'),
+                          children: [
+                            Text('৳${widget.response.sender!.balance}.00'),
                           ],
                         )
                       ],
@@ -153,7 +164,7 @@ class _SuccessScreenState extends State<SuccessScreen> {
                         const SizedBox(
                           height: 5,
                         ),
-                        const Text('01:16pm'),
+                        Text(widget.response.transaction!.createdAt.toString()),
                       ],
                     ),
                     Column(
@@ -168,12 +179,17 @@ class _SuccessScreenState extends State<SuccessScreen> {
                           height: 5,
                         ),
                         Row(
-                          children: const [
-                            Text('9DF587FGD1D'),
-                            SizedBox(
+                          children: [
+                            Text(
+                              widget.response.transaction!.trxId!,
+                            ),
+                            const SizedBox(
                               width: 5,
                             ),
-                            Icon(Icons.copy, size: 15,)
+                            const Icon(
+                              Icons.copy,
+                              size: 15,
+                            )
                           ],
                         )
                       ],
@@ -190,18 +206,17 @@ class _SuccessScreenState extends State<SuccessScreen> {
                   Icons.stars_sharp,
                   color: Colors.pink,
                   size: 40,
-
                 ),
-                const Text('You won', style: TextStyle(
-                    fontSize: 18
-                ),),
+                const Text(
+                  'You won',
+                  style: TextStyle(fontSize: 18),
+                ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text('Reward Point', style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18
-                ),
+                const Text(
+                  'Reward Point',
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 const SizedBox(
                   height: 5,
@@ -217,10 +232,10 @@ class _SuccessScreenState extends State<SuccessScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             shape: const RoundedRectangleBorder(),
             backgroundColor: Colors.pink,
-
           ),
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => HomeScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (_) => HomeScreen()));
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
@@ -228,7 +243,6 @@ class _SuccessScreenState extends State<SuccessScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: const [
-
                 Text(
                   'Next',
                   style: TextStyle(color: Colors.white),

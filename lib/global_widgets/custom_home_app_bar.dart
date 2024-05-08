@@ -43,8 +43,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
                   backgroundImage: controller.userData.value.profilePicture ==
                           null
                       ? null
-                      : NetworkImage(
-                          '${AppConfig.baseUrl}${controller.userData.value.profilePicture!}'),
+                      : NetworkImage(controller.userData.value.profilePicture!),
                   radius: 30,
                 ),
               ),
